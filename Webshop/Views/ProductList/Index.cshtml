@@ -1,0 +1,87 @@
+﻿@model Webshop.Models.ProductList.ProductIndexModel
+
+<div class="addProducts">
+    <h3>Product Catalog</h3>
+    <div class="col-lg-1">
+        @using (Html.BeginForm("CreateNewEntry", "ProductList", FormMethod.Post))
+        {
+            <table class="table table-condensed" id="catalogIndexTable">
+                <thead>
+                    <tr>
+                        <th class="myTextBox">
+                            Product name:
+                        </th>
+                        <th class="myTextBox">
+                            Description:
+                        </th>
+                        <th class="myTextBox">
+                            Price:
+                        </th>
+                        <th class="myTextBox">
+                            Category:
+                        </th>
+                        <th class="myTextBox"></th>
+                        <th class="myTextBox"></th>
+                    </tr>
+                <thead>
+                <tbody>
+                    <tr>
+                        <td class="myTextBox">
+                            @Html.TextBox("itemName")
+                        </td>
+                        <td class="myTextBox">
+                            @Html.TextBox("description")
+                        </td>
+                        <td class="myTextBox">
+                            @Html.TextBox("price")
+                        </td>
+                        <td class="myTextBox">
+                            @Html.DropDownList("CategoryKind", (SelectList)ViewData["CategorySelectList"])
+                        </td>
+                        <td class="myTextBox">
+                            <button type="submit" class="btn btn-success">Upload</button>
+                        </td>
+                        @*<td class="myTextBox"></td>*@
+                    </tr>
+                </tbody>
+            </table>
+        }
+    </div>
+</div>
+
+<div id="products">
+    <table class="table table-condensed" id="catalogIndexTable">
+        <thead>
+            <tr>
+                <th></th>
+                <th>ItemName</th>
+                <th>Description</th>
+                <th>Price</th>
+                <th>Category</th>
+                <th>UploadTime</th>
+                <th>PersonName</th>
+                <th>PersonEmail</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model.Products != null)
+            {
+                @foreach (var items in Model.Products)
+                {
+            <tr class="itemRow">
+                <td class="">
+                    <a class="btn btn-danger btn-sm" role="button" asp-action="Delete" asp-route-id="@items.Id">Delete</a>
+                </td>
+                <td class="">@items.ItemName</td>
+                <td class="">@items.Description</td>
+                <td class="">@items.Price</td>
+                <td class="">@items.Category</td>
+                <td class="">@items.UploadTime</td>
+                <td class="">@items.PersonName</td>
+                <td class="">@items.PersonEmail</td>
+            </tr>
+                }
+            }
+        </tbody>
+    </table>
+</div>
